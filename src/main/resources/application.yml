@@ -1,0 +1,25 @@
+spring:
+  profiles:
+    active: local
+  datasource:
+    url: jdbc:mysql://localhost:3306/sajang_db
+    username: sajang_user
+    password: sajang_pass
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+springdoc:
+  swagger-ui:
+    path: /swagger
+    display-request-duration: true
+  api-docs:
+    enabled: true
+    path: /v3/api-docs
+  cors:
+    enabled: true
