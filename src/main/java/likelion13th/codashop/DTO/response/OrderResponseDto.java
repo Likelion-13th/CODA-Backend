@@ -8,7 +8,7 @@ import lombok.Getter;
 import java.time.LocalDateTime;
 
 @Getter
-@AllArgsConstructor 
+@AllArgsConstructor
 public class OrderResponseDto {
     private Long orderId;
     private String usernickname;
@@ -24,7 +24,7 @@ public class OrderResponseDto {
         return new OrderResponseDto(
                 order.getId(),
                 order.getUser().getUsernickname(),
-                order.getItem().getItemName(),
+                order.getItem().getItemname(),
                 order.getQuantity(),
                 order.getTotalPrice(),
                 order.getFinalPrice(),
