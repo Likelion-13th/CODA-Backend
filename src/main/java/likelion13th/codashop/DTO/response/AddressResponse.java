@@ -6,13 +6,13 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class AddressResponseDto {
+public class AddressResponse {
     private String zipcode;
     private String address;
     private String addressDetail;
 
-    public static AddressResponseDto from(Address address) {
-        return new AddressResponseDto(
+    public static AddressResponse from(Address address) {
+        return new AddressResponse(
                 address.getZipcode(),
                 address.getAddress(),
                 address.getAddressDetail()

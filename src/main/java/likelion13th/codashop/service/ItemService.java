@@ -75,7 +75,7 @@ public class ItemService {
     }
     //item 수정
     @Transactional
-    public ItemResponseDto fixItem(Long itemId, ItemCreateRequest request) {
+    public void fixItem(Long itemId, ItemCreateRequest request) {
         Item item=itemRepository.findById(itemId)
                 .orElseThrow(()-> new GeneralException(ErrorCode.ITEM_NOT_FOUND));
         item.setItemname(request.getItemname());
@@ -83,11 +83,7 @@ public class ItemService {
         item.setBrand(request.getBrand());
         item.setImagePath(request.getImagePath());
         item.setNew(request.isNew());
-
         item.setCategories(request.getCategories());
-        Item fixedItem=itemRepository.save(item);
-
-        return ItemResponseDto.from(fixedItem);
     }
 
 
