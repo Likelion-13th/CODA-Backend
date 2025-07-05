@@ -103,6 +103,6 @@ public class UserInfoController {
             throw new GeneralException(ErrorCode.INTERNAL_SERVER_ERROR);
         }
     }
-    }
 
 }
+
