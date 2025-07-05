@@ -2,6 +2,7 @@ package likelion13th.codashop.service;
 
 import jakarta.transaction.Transactional;
 import likelion13th.codashop.DTO.request.CategoryCreateRequest;
+import likelion13th.codashop.DTO.response.ItemResponseDto;
 import likelion13th.codashop.domain.Category;
 import likelion13th.codashop.DTO.response.CategoryResponse;
 import likelion13th.codashop.global.api.ErrorCode;
@@ -60,5 +61,14 @@ public class CategoryService {
             throw new GeneralException(ErrorCode.CATEGORY_NOT_FOUND);
         }
         categoryRepository.deleteById(categoryId);
+    }
+    //카테고리별 상품조회
+    @Transactional
+    public List<ItemResponseDto> getItemsByCategory(Long categoryId) {
+        Category category=categoryRepository.findById(categoryId)
+                .orElseThrow(()-> new GeneralException(ErrorCode.CATEGORY_NOT_FOUND));
+        return category.getItems().stream()
+                .map(ItemResponseDto::from)
+                .collect(Collectors.toList());
     }
 }

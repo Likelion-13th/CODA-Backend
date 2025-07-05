@@ -38,15 +38,7 @@ public class ItemService {
                 .collect(Collectors.toList());
     }
 
-    //카테고리별 상품조회
-    @Transactional
-    public List<ItemResponseDto> getItemsByCategory(Long categoryId) {
-        Category category=categoryRepository.findById(categoryId)
-                .orElseThrow(()-> new GeneralException(ErrorCode.CATEGORY_NOT_FOUND));
-        return category.getItems().stream()
-                .map(ItemResponseDto::from)
-                .collect(Collectors.toList());
-    }
+
 
     //상품 생성
     @Transactional
@@ -75,7 +67,7 @@ public class ItemService {
     }
     //item 수정
     @Transactional
-    public void fixItem(Long itemId, ItemCreateRequest request) {
+    public ItemResponseDto fixItem(Long itemId, ItemCreateRequest request) {
         Item item=itemRepository.findById(itemId)
                 .orElseThrow(()-> new GeneralException(ErrorCode.ITEM_NOT_FOUND));
         item.setItemname(request.getItemname());
@@ -84,6 +76,8 @@ public class ItemService {
         item.setImagePath(request.getImagePath());
         item.setNew(request.isNew());
         item.setCategories(request.getCategories());
+
+        return ItemResponseDto.from(item);
     }
 
 
