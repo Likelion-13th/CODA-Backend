@@ -16,5 +16,5 @@ public class ItemCreateRequest {
     private String imagePath;
     private String brand;
     private boolean isNew;
-    private List<Category> categories;
+    private List<Long> categoryIds;
 }

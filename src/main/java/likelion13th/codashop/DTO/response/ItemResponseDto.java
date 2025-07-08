@@ -12,6 +12,7 @@ public class ItemResponseDto {
     private Long itemId;
     private String itemName;
     private int price;
+    private String imagePath;
     private String brand;
     private boolean isNew;
     private List<Category> categories;
@@ -21,6 +22,7 @@ public class ItemResponseDto {
                 item.getId(),
                 item.getItemname(),
                 item.getPrice(),
+                item.getImagePath(),
                 item.getBrand(),
                 item.isNew(),
                 item.getCategories()

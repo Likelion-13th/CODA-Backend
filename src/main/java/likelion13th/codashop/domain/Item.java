@@ -13,7 +13,6 @@ import java.util.List;
 @Setter
 @Table(name ="item")
 @NoArgsConstructor
-@AllArgsConstructor
 
 public class Item extends BaseEntity {
     @Id

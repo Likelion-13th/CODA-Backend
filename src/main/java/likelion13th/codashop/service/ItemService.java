@@ -51,7 +51,7 @@ public class ItemService {
                 request.isNew()
         );
 
-        item.setCategories(request.getCategories());
+        item.setCategories(categoryRepository.findAllById(request.getCategoryIds()));
         itemRepository.save(item);
 
         return ItemResponseDto.from(item);
@@ -75,7 +75,7 @@ public class ItemService {
         item.setBrand(request.getBrand());
         item.setImagePath(request.getImagePath());
         item.setNew(request.isNew());
-        item.setCategories(request.getCategories());
+        item.setCategories(categoryRepository.findAllById(request.getCategoryIds()));
 
         return ItemResponseDto.from(item);
     }

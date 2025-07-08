@@ -14,7 +14,7 @@ import java.util.Optional;
 @Getter
 @Table(name="categorys")
 @NoArgsConstructor
-@AllArgsConstructor
+
 public class Category extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
