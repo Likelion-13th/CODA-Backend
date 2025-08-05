@@ -17,3 +17,4 @@ public class UserMilegeResponse {
         );
     }
 }
+//유저 마일리지와 최근 사용 금액 반환

@@ -36,10 +36,11 @@ public class UserAddressController {
     public ApiResponse<?> getAddress(
             @AuthenticationPrincipal CustomUserDetails customUserDetails
     ){
-        User user = userService.findByProviderId(customUserDetails.getProviderId())
-                .orElseThrow(() -> new GeneralException(ErrorCode.USER_NOT_FOUND));
+
         log.info("[STEP 1] 내 주소 조회 요청 수신 ..");
         try{
+            User user = userService.findByProviderId(customUserDetails.getProviderId())
+                    .orElseThrow(() -> new GeneralException(ErrorCode.USER_NOT_FOUND));
             AddressResponse myAddress=userAddressService.getAddress(user);
             log.info("[STEP 2] 내 주소 조회 성공");
             return ApiResponse.onSuccess(SuccessCode.ADDRESS_GET_SUCCESS,myAddress);
@@ -61,10 +62,11 @@ public class UserAddressController {
             @AuthenticationPrincipal CustomUserDetails customUserDetails,
             @RequestBody AdressRequest request
     ){
-        User user = userService.findByProviderId(customUserDetails.getProviderId())
-                .orElseThrow(() -> new GeneralException(ErrorCode.USER_NOT_FOUND));
+
         log.info("[STEP 1] 내 주소 수정 요청 수신 ..");
         try{
+            User user = userService.findByProviderId(customUserDetails.getProviderId())
+                    .orElseThrow(() -> new GeneralException(ErrorCode.USER_NOT_FOUND));
             AddressResponse myAddress=userAddressService.fixAdress(user,request);
             log.info("[STEP 2] 내 주소 수정 성공");
             return ApiResponse.onSuccess(SuccessCode.ADDRESS_SAVE_SUCCESS,myAddress);
@@ -80,3 +82,6 @@ public class UserAddressController {
     }
 
 }
+
+//try catch를 활용하여 일관적인 오류 및 성공시 apiresponse 형태로 api구현
+// 유저 서비스에서 가져온 유저 객체를 활용하여 주소 정보 조회

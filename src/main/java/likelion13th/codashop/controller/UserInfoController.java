@@ -37,10 +37,11 @@ public class UserInfoController {
     public ApiResponse<?> getUserInfo(
             @AuthenticationPrincipal CustomUserDetails customUserDetails
     ){
-        User user= userService.findByProviderId(customUserDetails.getProviderId())
-                .orElseThrow(()-> new GeneralException(ErrorCode.USER_NOT_FOUND));
         log.info("[STEP 1] 내 정보 조회 요청 수신");
         try{
+            User user= userService.findByProviderId(customUserDetails.getProviderId())
+                    .orElseThrow(()-> new GeneralException(ErrorCode.USER_NOT_FOUND));
+
             UserInfoResponse userInfoResponse = userInfoService.getUserInfo(user);
             log.info("[STEP 2] 내 정보 조회 성공");
             return ApiResponse.onSuccess(SuccessCode.USER_INFO_GET_SUCCESS, userInfoResponse);
@@ -62,10 +63,11 @@ public class UserInfoController {
             @AuthenticationPrincipal CustomUserDetails customUserDetails,
             @RequestBody UserInfoFixRequest request
     ){
-        User user= userService.findByProviderId(customUserDetails.getProviderId())
-                .orElseThrow(()-> new GeneralException(ErrorCode.USER_NOT_FOUND));
+
         log.info("[STEP 1] 내 정보 수정 요청 수신..");
         try{
+            User user= userService.findByProviderId(customUserDetails.getProviderId())
+                    .orElseThrow(()-> new GeneralException(ErrorCode.USER_NOT_FOUND));
             UserInfoResponse fixedUser=userInfoService.fixUserInfo(user,request);
             log.info("[STEP 2] 내 정보 수정 성공 ..");
             return ApiResponse.onSuccess(SuccessCode.OK,fixedUser);
@@ -86,10 +88,11 @@ public class UserInfoController {
     public ApiResponse<?> getUserMileage(
             @AuthenticationPrincipal CustomUserDetails customUserDetails
     ){
-        User user= userService.findByProviderId(customUserDetails.getProviderId())
-                .orElseThrow(()-> new GeneralException(ErrorCode.USER_NOT_FOUND));
+
         log.info("[STEP 1] 내 마일리지 조회 요청 수신..");
         try{
+            User user= userService.findByProviderId(customUserDetails.getProviderId())
+                    .orElseThrow(()-> new GeneralException(ErrorCode.USER_NOT_FOUND));
             UserMilegeResponse myMilage=userInfoService.getUserMileges(user);
             log.info("[STEP 2]  내 마일리지 조회 성공 ..");
             return ApiResponse.onSuccess(SuccessCode.OK,myMilage);
@@ -106,3 +109,5 @@ public class UserInfoController {
 
 }
 
+// getmapping request 매핑을 통해 api 호출
+// operation 을 통해 swagger 문서화

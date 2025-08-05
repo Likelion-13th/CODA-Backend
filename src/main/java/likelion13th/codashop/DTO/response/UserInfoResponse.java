@@ -7,9 +7,7 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class UserInfoResponse{
-    private Long userId;
     private String usernickname;
-    private String providerId;
     private String phoneNumber;
     private int recentTotal;
     private boolean deletable;
@@ -17,12 +15,12 @@ public class UserInfoResponse{
 
     public static UserInfoResponse from(User user){
         return new UserInfoResponse(
-                user.getId(),
                 user.getUsernickname(),
-                user.getProviderId(),
                 user.getPhoneNumber(),
                 user.getRecentTotal(),
                 user.isDeletable()
         );
     }
 }
+// 유저 id, 프로바이더 id 같은 민감한 정보는 가리고 닉네임,번호등 정보만 노춢
+//static매소드를 활용하여 클래스 명으로만 from을 통해 user객체와 매핑하여 response 반환

@@ -72,3 +72,5 @@ public class CategoryService {
                 .collect(Collectors.toList());
     }
 }
+//stream 을통해 item 리스트를 iterater로 뜯어낸뒤 map을 통해 각 객체 item response로 변환, .collect를 통해 다시 리스트로 변환
+

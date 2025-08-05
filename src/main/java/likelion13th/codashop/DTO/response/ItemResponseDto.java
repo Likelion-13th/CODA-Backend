@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.util.List;
+import java.util.stream.Collectors;
+
 @Getter
 @AllArgsConstructor
 public class ItemResponseDto {
@@ -15,7 +17,7 @@ public class ItemResponseDto {
     private String imagePath;
     private String brand;
     private boolean isNew;
-    private List<Category> categories;
+    private List<String> categories;
 
     public static ItemResponseDto from(Item item) {
         return new ItemResponseDto(
@@ -25,8 +27,10 @@ public class ItemResponseDto {
                 item.getImagePath(),
                 item.getBrand(),
                 item.isNew(),
-                item.getCategories()
+                item.getCategories().stream().map(Category::getCategoryName)
+                        .collect(Collectors.toList())
         );
 
     }
 }
+//아이템 카테고리 이름만 반환 할 수 있도록 작성

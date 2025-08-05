@@ -22,10 +22,12 @@ public class UserAddressService {
     private final UserRepository userRepository;
 
     //내 주소 조회
+    @Transactional
     public AddressResponse getAddress(User user) {
         return AddressResponse.from(user.getAddress());
     }
     //내 주소 수정
+    @Transactional
     public AddressResponse fixAdress(User user, AdressRequest request) {
         Address address = new Address(
                 request.getZipCode(),
@@ -38,3 +40,4 @@ public class UserAddressService {
     }
 
 }
+//final을 통해 레포 객체 생성이 여러번 되지 않고 하나의 객체로 사용할 수 있게 작성

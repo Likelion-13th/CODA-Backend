@@ -26,3 +26,5 @@ public class Address {
         this.addressDetail = "한국항공대학교";
     }
 }
+//embedd 타입으로 유저 객체 안에 addr관련 컬럼을 address객체로 관리하도록함
+//생성자를 통해 기본 default 값으로 해당 주소를 넣어 관리

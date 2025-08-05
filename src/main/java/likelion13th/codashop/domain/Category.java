@@ -39,3 +39,5 @@ public class Category extends BaseEntity {
     }
 
 }
+//many to many 를 활용한 다대다 매핑
+//setter private를 통해 외부에서 접근 못하도록 하여 pk 값 무결성 보장

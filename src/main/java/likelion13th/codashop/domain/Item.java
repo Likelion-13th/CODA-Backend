@@ -38,7 +38,7 @@ public class Item extends BaseEntity {
 
     //카테고리와 연관관계 설정
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<Category> categories = new ArrayList<>();
 
     //order 와 연관관계 설정
@@ -54,3 +54,5 @@ public class Item extends BaseEntity {
         this.isNew = isNew;
     }
 }
+// one to many를 활용하여 카테고라와 매핑 1대 다 관계 설정
+// base entity를 활용하여 upload at update at 컬럼 추가
