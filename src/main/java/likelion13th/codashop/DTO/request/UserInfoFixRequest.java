@@ -5,9 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
-@Setter
 @NoArgsConstructor
 public class UserInfoFixRequest {
     private String usernickname;
-    private String phonenumber;
+    private String phoneNumber;
 }

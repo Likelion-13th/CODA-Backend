@@ -2,10 +2,9 @@
 package likelion13th.codashop.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
-import likelion13th.codashop.DTO.request.AdressRequest;
+import likelion13th.codashop.DTO.request.AddressRequest;
 import likelion13th.codashop.DTO.response.AddressResponse;
 import likelion13th.codashop.domain.User;
-import likelion13th.codashop.domain.Address;
 import likelion13th.codashop.global.api.ApiResponse;
 import likelion13th.codashop.global.api.ErrorCode;
 import likelion13th.codashop.global.api.SuccessCode;
@@ -17,10 +16,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 @RestController
@@ -60,7 +55,7 @@ public class UserAddressController {
     @Operation(summary = "내 주소 수정", description = "내 주소를 수정 합니다.")
     public ApiResponse<?> updateAddress(
             @AuthenticationPrincipal CustomUserDetails customUserDetails,
-            @RequestBody AdressRequest request
+            @RequestBody AddressRequest request
     ){
 
         log.info("[STEP 1] 내 주소 수정 요청 수신 ..");

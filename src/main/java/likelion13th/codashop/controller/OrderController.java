@@ -1,6 +1,7 @@
 package likelion13th.codashop.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import likelion13th.codashop.DTO.request.OrderCreateRequest;
 import likelion13th.codashop.DTO.response.ItemResponseDto;
 import likelion13th.codashop.DTO.response.OrderResponseDto;
@@ -27,6 +28,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/orders")
 @RequiredArgsConstructor
+@Tag(name="주문생성",description = "로그인한 사용자의 주문을 생성합니다.")
 public class OrderController {
     private final OrderService orderService;
     private final UserService userService;

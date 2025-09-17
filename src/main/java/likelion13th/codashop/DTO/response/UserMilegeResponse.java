@@ -8,12 +8,11 @@ import lombok.Getter;
 @AllArgsConstructor
 public class UserMilegeResponse {
     private int maxMileage;
-    private int recentTotal;
+
 
     public static UserMilegeResponse from(User user) {
         return new UserMilegeResponse(
-                user.getMaxMileage(),
-                user.getRecentTotal()
+                user.getMaxMileage()
         );
     }
 }

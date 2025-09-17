@@ -42,10 +42,11 @@ public class Item extends BaseEntity {
     private List<Category> categories = new ArrayList<>();
 
     //order 와 연관관계 설정
+    /*
     @OneToMany(mappedBy = "item",cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Order> orders = new ArrayList<>();
-
+    */
     public Item(String itemname, int price, String thumbnail_img, String brand, boolean isNew ){
         this.itemname = itemname;
         this.price = price;

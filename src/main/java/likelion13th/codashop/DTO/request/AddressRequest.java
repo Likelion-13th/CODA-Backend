@@ -5,10 +5,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
-@Setter
 @NoArgsConstructor
-public class AdressRequest {
-    private String zipCode;
+public class AddressRequest {
+    private String zipcode;
     private String address;
     private String addressDetail;
 }

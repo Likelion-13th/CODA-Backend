@@ -1,6 +1,7 @@
 package likelion13th.codashop.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import likelion13th.codashop.DTO.request.CategoryCreateRequest;
 import likelion13th.codashop.DTO.response.CategoryResponse;
 import likelion13th.codashop.DTO.response.ItemResponseDto;
@@ -30,6 +31,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/categories")
 @RequiredArgsConstructor
+@Tag(name ="카테고리",description = "카테고리 관련 API 입니다.")
 public class CategoryController {
     private final CategoryService categoryService;
     private final ItemService itemService;
@@ -42,7 +44,7 @@ public class CategoryController {
         if(categories.isEmpty()){
             return ApiResponse.onSuccess(SuccessCode.CATEGORY_ITEMS_EMPTY,Collections.emptyList());
         }
-        return ApiResponse.onSuccess(SuccessCode.OK,categories);
+        return ApiResponse.onSuccess(SuccessCode.CATEGORY_ITEMS_GET_SUCCESS,categories);
     }
 
     //카테고리 생성

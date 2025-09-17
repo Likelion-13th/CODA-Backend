@@ -27,6 +27,10 @@ public class Category extends BaseEntity {
 
     //아이템과의 관계설정
     @ManyToMany
+    @JsonIgnore
+    @JoinTable(name="category_item",
+            joinColumns = @JoinColumn(name="category_id"),
+    inverseJoinColumns = @JoinColumn(name="item_id"))
     private List<Item> items= new ArrayList<>();
 
     //생성자

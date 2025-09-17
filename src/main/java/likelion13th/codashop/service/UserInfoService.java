@@ -8,9 +8,6 @@ import likelion13th.codashop.DTO.response.UserInfoResponse;
 import likelion13th.codashop.DTO.request.UserInfoFixRequest;
 import likelion13th.codashop.domain.User;
 import likelion13th.codashop.repository.UserRepository;
-import likelion13th.codashop.global.api.ErrorCode;
-import likelion13th.codashop.global.exception.GeneralException;
-
 
 
 @Service
@@ -27,7 +24,7 @@ public class UserInfoService {
     @Transactional
     public UserInfoResponse fixUserInfo(User user, UserInfoFixRequest request) {
         user.setUsernickname(request.getUsernickname());
-        user.setPhoneNumber(request.getPhonenumber());
+        user.setPhoneNumber(request.getPhoneNumber());
         return UserInfoResponse.from(user);
     }
     //내 마일리지 조회
