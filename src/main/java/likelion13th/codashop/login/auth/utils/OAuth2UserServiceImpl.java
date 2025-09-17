@@ -1,5 +1,5 @@
 package likelion13th.codashop.login.auth.utils;
-import ` Vlikelion13th.codashop.domain.User;
+import likelion13th.codashop.domain.User;
 import likelion13th.codashop.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
