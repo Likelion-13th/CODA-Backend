@@ -25,7 +25,9 @@ public class SwaggerConfig {
                 .addSecurityItem(new SecurityRequirement().addList("Authorization"))
                 .schemaRequirement("Authorization", new SecurityScheme()
                         .name("Authorization")
-                        .type(SecurityScheme.Type.APIKEY)
+                        .bearerFormat("JWT")
+                        .scheme("bearer")
+                        .type(SecurityScheme.Type.HTTP)
                         .in(SecurityScheme.In.HEADER)
                         .description("Access Token을 입력하세요."));
     }

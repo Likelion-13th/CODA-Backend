@@ -30,7 +30,7 @@ public class RefreshToken {
      * - users_id에는 UNIQUE 제약을 걸어 "사용자당 1행"만 허용
      */
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "users_id", unique = true) // ✅ FK + UNIQUE 제약(사용자당 1개)
+    @JoinColumn(name = "user_id", unique = true) // ✅ FK + UNIQUE 제약(사용자당 1개)
     private User user;
 
     /**

@@ -59,9 +59,7 @@ public class JwtValidationFilter extends OncePerRequestFilter {
      */
     @Override
     protected void doFilterInternal(
-            HttpServletRequest request,
-            HttpServletResponse response,
-            FilterChain chain
+           HttpServletRequest request, HttpServletResponse response, FilterChain chain
     ) throws ServletException, IOException {
 
         // [사전 차단] 이미 인증된 요청이면 추가 작업 없이 다음 필터로 진행

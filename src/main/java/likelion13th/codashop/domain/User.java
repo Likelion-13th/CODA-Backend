@@ -62,6 +62,8 @@ public class User extends BaseEntity {
             @AttributeOverride(name = "addressDetail", column = @Column(name = "address_detail", nullable = false))
     })*/
     private Address address;
+    @Column(nullable = true)
+    private String email;
 
     // 주소 저장/수정 메서드 추가
     public void updateAddress(Address address) {

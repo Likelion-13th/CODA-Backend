@@ -6,19 +6,23 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Schema(description = "UserReqDto")
-@Getter
 @Builder
-@AllArgsConstructor
 @NoArgsConstructor
 public class UserRequestDto {
-    @Schema(description = "이메일")
-    private String email;
+    @Schema(description = "UserReqDto")
+    @Getter
+    @AllArgsConstructor
+    public class UserReqDto{
+        @Schema(description = "이메일")
+        private String email;
 
-    @Schema(description = "id(username)")
-    private String username;
+        @Schema(description = "id(username)")
+        private String username;
 
-    @Schema(description = "social type")
-    private String providerId;
+        @Schema(description = "social type")
+        private String providerId;
+    }
 
 }
+
+
