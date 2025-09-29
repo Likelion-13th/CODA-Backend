@@ -1,6 +1,11 @@
 package likelion13th.codashop.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
 import likelion13th.codashop.DTO.request.OrderCreateRequest;
 import likelion13th.codashop.DTO.response.ItemResponseDto;
 import likelion13th.codashop.DTO.request.ItemCreateRequest;
@@ -16,6 +21,7 @@ import likelion13th.codashop.service.ItemService;
 import likelion13th.codashop.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.MediaType;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -31,6 +37,7 @@ import java.util.Optional;
 public class ItemController {
     private final ItemService itemService;
     private final CategoryService categoryService;
+    private final ObjectMapper objectMapper;
 
     //모든 상품 조
     @GetMapping
@@ -64,15 +71,20 @@ public class ItemController {
     }
 
     //상품 생성
-    @PostMapping
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @Operation(summary = "상품 생성", description = "요청한 상품을 생성합니다.")
     public ApiResponse<?> createItem(
-            @RequestBody ItemCreateRequest request
+            @Parameter(description = "상품 정보(JSON)", required = true)
+            @RequestPart("ItemInfo") String itemInfoJson,
 
-    ){
+            @Parameter(description = "상품 이미지 파일", required = true)
+            @RequestPart("Photo") MultipartFile file
+    ) {
+
         log.info("[STEP 1] 상품 생성 요청 수신..");
         try{
-            ItemResponseDto newItem=itemService.createItem(request);
+            ItemCreateRequest request = objectMapper.readValue(itemInfoJson, ItemCreateRequest.class);
+            ItemResponseDto newItem=itemService.createItem(request,file);
             log.info("[STEP 2] 상품 생성 성공");
             return ApiResponse.onSuccess(SuccessCode.OK,newItem);
         }
@@ -87,15 +99,21 @@ public class ItemController {
     }
 
     //상품 수정
-    @PutMapping("/{itemId}")
-    @Operation(summary ="상품 수정", description = "요청 상품 정보를 수정합니다.")
+    @PutMapping(value = "/{itemId}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @Operation(summary = "상품 수정", description = "요청 상품 정보를 수정합니다.")
     public ApiResponse<?> updateItem(
             @PathVariable Long itemId,
-            @RequestBody ItemCreateRequest request
+
+            @Parameter(description = "상품 정보(JSON)", required = true)
+            @RequestPart("ItemInfo") String itemInfoJson,  // JSON 문자열로 받기
+
+            @Parameter(description = "상품 이미지 파일", required = true)
+            @RequestPart("Photo") MultipartFile file       // 파일
     ){
         log.info("[STEP 1] 상품 정보 수정 요청 수신..");
         try{
-            ItemResponseDto fixedItem=itemService.fixItem(itemId,request);
+            ItemCreateRequest request = objectMapper.readValue(itemInfoJson, ItemCreateRequest.class);
+            ItemResponseDto fixedItem=itemService.fixItem(itemId,request,file);
             log.info("[STEP 2] 상품 정보 수정 성공");
             return ApiResponse.onSuccess(SuccessCode.OK,fixedItem);
         }

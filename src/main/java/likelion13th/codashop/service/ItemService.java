@@ -10,6 +10,7 @@ import likelion13th.codashop.global.exception.GeneralException;
 import likelion13th.codashop.repository.CategoryRepository;
 import likelion13th.codashop.repository.ItemRepository;
 import likelion13th.codashop.S3.S3Service;
+import likelion13th.codashop.DTO.response.S3Item;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -47,13 +48,15 @@ public class ItemService {
     //상품 생성
     @Transactional
     public ItemResponseDto createItem(ItemCreateRequest request, MultipartFile file) {
+        S3Item s3Result=s3Service.uploadFileForItem(file);
         Item item = new Item(
                 request.getItemname(),
                 request.getPrice(),
+                s3Result.getUrl(),
+                s3Result.getItemName(),
                 request.getBrand(),
                 request.isNew()
         );
-
         item.setCategories(categoryRepository.findAllById(request.getCategoryIds()));
         itemRepository.save(item);
 
@@ -63,20 +66,22 @@ public class ItemService {
     //item 삭제
     @Transactional
     public void deleteItem(Long itemId) {
-        if(!itemRepository.existsById(itemId)) {
-            throw new GeneralException(ErrorCode.ITEM_NOT_FOUND);
-        }
+        Item item=itemRepository.findById(itemId).orElseThrow(()-> new GeneralException(ErrorCode.ITEM_NOT_FOUND));
+        s3Service.deleteFile(item.getS3ImgKey());
         itemRepository.deleteById(itemId);
     }
     //item 수정
     @Transactional
-    public ItemResponseDto fixItem(Long itemId, ItemCreateRequest request) {
+    public ItemResponseDto fixItem(Long itemId, ItemCreateRequest request,MultipartFile file) {
         Item item=itemRepository.findById(itemId)
                 .orElseThrow(()-> new GeneralException(ErrorCode.ITEM_NOT_FOUND));
+        s3Service.deleteFile(item.getS3ImgKey());
+        S3Item s3Result=s3Service.uploadFileForItem(file);
         item.setItemname(request.getItemname());
         item.setPrice(request.getPrice());
         item.setBrand(request.getBrand());
-        item.setImagePath(request.getImagePath());
+        item.setImagePath(s3Result.getUrl());
+        item.setS3ImgKey(s3Result.getItemName());
         item.setNew(request.isNew());
         item.setCategories(categoryRepository.findAllById(request.getCategoryIds()));
 

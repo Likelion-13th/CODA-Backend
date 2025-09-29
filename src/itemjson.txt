@@ -1,0 +1,7 @@
+{
+  "itemname": "퍼퓸1",
+  "price": 120000,
+  "brand": "브랜드1",
+  "isNew": true,
+  "categoryIds": [2]
+}
