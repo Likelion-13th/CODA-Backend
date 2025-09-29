@@ -26,7 +26,7 @@ public class Item extends BaseEntity {
     @Column(nullable = false)
     private int price;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String imagePath;
 
     @Column(nullable = false)
@@ -36,8 +36,10 @@ public class Item extends BaseEntity {
     @Setter
     private boolean isNew=false;
 
-    //카테고리와 연관관계 설정
+    @Column(nullable = true)
+    private String s3ImgKey;
 
+    //카테고리와 연관관계 설정
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Category> categories = new ArrayList<>();
 
@@ -47,10 +49,11 @@ public class Item extends BaseEntity {
     @JsonIgnore
     private List<Order> orders = new ArrayList<>();
     */
-    public Item(String itemname, int price, String thumbnail_img, String brand, boolean isNew ){
+    public Item(String itemname, int price, String thumbnail_img,String imgKey, String brand, boolean isNew ){
         this.itemname = itemname;
         this.price = price;
         this.imagePath = thumbnail_img;
+        this.s3ImgKey=imgKey;
         this.brand = brand;
         this.isNew = isNew;
     }

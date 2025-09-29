@@ -18,6 +18,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Collections;
 import java.util.List;
@@ -67,6 +68,7 @@ public class ItemController {
     @Operation(summary = "상품 생성", description = "요청한 상품을 생성합니다.")
     public ApiResponse<?> createItem(
             @RequestBody ItemCreateRequest request
+
     ){
         log.info("[STEP 1] 상품 생성 요청 수신..");
         try{

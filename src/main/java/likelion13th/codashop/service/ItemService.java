@@ -9,9 +9,11 @@ import likelion13th.codashop.global.api.ErrorCode;
 import likelion13th.codashop.global.exception.GeneralException;
 import likelion13th.codashop.repository.CategoryRepository;
 import likelion13th.codashop.repository.ItemRepository;
+import likelion13th.codashop.S3.S3Service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,6 +23,8 @@ import java.util.stream.Collectors;
 public class ItemService {
     private final ItemRepository itemRepository;
     private final CategoryRepository categoryRepository;
+    private final S3Service s3Service;
+
 
     // 개별 상품 조회
     @Transactional
@@ -42,12 +46,11 @@ public class ItemService {
 
     //상품 생성
     @Transactional
-    public ItemResponseDto createItem(ItemCreateRequest request) {
+    public ItemResponseDto createItem(ItemCreateRequest request, MultipartFile file) {
         Item item = new Item(
                 request.getItemname(),
                 request.getPrice(),
                 request.getBrand(),
-                request.getImagePath(),
                 request.isNew()
         );
 

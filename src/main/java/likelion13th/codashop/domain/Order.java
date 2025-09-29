@@ -13,6 +13,7 @@ import lombok.Setter;
 @Table(name = "orders") //예약어 회피
 @NoArgsConstructor
 //파라미터가 없는 디폴트 생성자 자동으로 생성
+
 public class Order extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

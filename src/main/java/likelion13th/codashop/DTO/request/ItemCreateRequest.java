@@ -12,7 +12,6 @@ import java.util.List;
 public class ItemCreateRequest {
     private String itemname;
     private int price;
-    private String imagePath;
     private String brand;
     private boolean isNew;
     private List<Long> categoryIds;
