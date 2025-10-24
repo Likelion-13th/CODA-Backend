@@ -1,5 +1,7 @@
 # default profile settings
 spring:
+  config:
+    import: optional:file:.env[.properties]
   profiles:
     active: local
 
@@ -28,6 +30,14 @@ JWT_SECRET: ${JWT_SECRET}
 JWT_EXPIRATION: ${JWT_EXPIRATION}                  # Access(ms)
 JWT_REFRESH_EXPIRATION: ${JWT_REFRESH_EXPIRATION}  # Refresh(ms)
 
+#s3
+cloud:
+  aws:
+    access-key: ${AWS_ACCESS_KEY:default-access-key}
+    secret-key: ${AWS_SECRET_KEY:default-secret-key}
+    region: ${AWS_REGION:ap-northeast-2}
+    bucket: ${AWS_BUCKET:default-bucket}
+
 #Swagger
 springdoc:
   api-docs:
@@ -41,31 +51,88 @@ springdoc:
 
 ---
 
+#spring:
+#  config:
+#    activate:
+#      on-prifile: local
+#  datasource:
+#    url: ${LOCAL_DB_URL}
+#    username: ${LOCAL_DB_USERNAME}
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#  sql:
+#    init:
+#      mode: never
+#  jpa:
+#    hibernate:
+#      ddl-auto: update
+#    properties:
+#      dialect: org.hibernate.dialect.MySQLDialect
+#      use_sql_comments: true
+#      default_batch_fetch_suze: 1000
+#
+#---
+#spring:
+#  config:
+#    activate:
+#      on-prifile: develop
+#  datasource:
+#    url: ${local.db.url}
+#    username: ${local.db.password}
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#  sql:
+#    init:
+#      mode: never
+#  jpa:
+#    hibernate:
+#      ddl-auto: update
+#    properties:
+#      dialect: org.hibernate.dialect.MySQLDialect
+#      use_sql_comments: true
+#      default_batch_fetch_suze: 1000
+
+# local profile
 spring:
+  config:
+    activate:
+      on-profile: local
   datasource:
-    url: jdbc:mysql://localhost:3306/sajang_db
-    username: sajang_user
-    password: sajang_pass
+    url: ${LOCAL_DB_URL}
+    username: ${LOCAL_DB_USERNAME}
+    password: ${LOCAL_DB_PASSWORD}
     driver-class-name: com.mysql.cj.jdbc.Driver
+  sql:
+    init:
+      mode: never
   jpa:
     hibernate:
       ddl-auto: update
-    show-sql: true
     properties:
-      hibernate:
-        format_sql: true
-  servlet:
-    multipart:
-      enabled: true
-      max-file-size: 50MB
-      max-request-size: 50MB
+      dialect: org.hibernate.dialect.MySQLDialect
+      use_sql_comments: true
+      default_batch_fetch_size: 1000
 
-cloud:
-  aws:
-    access-key: ${AWS_ACCESS_KEY:default-access-key}
-    secret-key: ${AWS_SECRET_KEY:default-secret-key}
-    region: ${AWS_REGION:ap-northeast-2}
-    bucket: ${AWS_BUCKET:default-bucket}
+---
+
+# develop profile
+spring:
+  config:
+    activate:
+      on-profile: develop
+  datasource:
+    url: ${AWS_DB_URL}
+    username: ${AWS_DB_USERNAME}
+    password: ${AWS_DB_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  sql:
+    init:
+      mode: never
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      dialect: org.hibernate.dialect.MySQLDialect
+      use_sql_comments: true
+      default_batch_fetch_size: 1000
 
 server:
   tomcat:

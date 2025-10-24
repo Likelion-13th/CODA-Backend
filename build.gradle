@@ -6,6 +6,11 @@ plugins {
 repositories {
 	mavenCentral()
 }
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(17)
+	}
+}
 dependencies {
 
 	implementation ('org.springframework.boot:spring-boot-starter-web')
@@ -57,4 +62,7 @@ dependencies {
 
 	//s3
 	implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
+}
+tasks.named('jar') {
+	enabled = false
 }

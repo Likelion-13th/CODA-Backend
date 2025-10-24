@@ -40,7 +40,7 @@ public class Item extends BaseEntity {
     private String s3ImgKey;
 
     //카테고리와 연관관계 설정
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "items")
     private List<Category> categories = new ArrayList<>();
 
     //order 와 연관관계 설정

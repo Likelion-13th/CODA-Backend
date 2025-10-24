@@ -1,0 +1,66 @@
+name: CODA Dev CI/CD
+
+on:
+  pull_request:
+    types:
+      - closed
+    workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.merged == true && github.event.pull_request.base.ref == 'main'
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Create .env file from secret
+        run: |
+          printf '%s' "${{ secrets.ENV_FILE }}" > .env
+          chmod 600 .env
+
+      - name: Set up JDK 17
+        uses: action/setup-java@v4.0.0
+        with:
+          java-version: '17'
+          distribution: 'adopt'
+
+      - name: Grant execute permission for gradlew
+        run: .gradlew clean build -x test
+        shell: bash
+
+      - name: Get current time
+        uses: josStorer/get-current-time@V2
+        id: current-time
+        with:
+          format: 'YYYY-MM-ddTHH:mm:ss'
+          utcOffset: '+09:00'
+
+      - name: Show current time
+        run: echo "${{ steps.current-time.outputs.formattedTime }}"
+        shell: bash
+
+      - name: Generate deployment pak\age
+        run: |
+          mkdir -p deploy
+          cp build/libs/*.jar deploy/application.jar
+          cp Procfile deploy/Procfile
+          cp -r .ebextensions_dev dploy/.ebextensions
+          cp -r .platform deploy/.platform
+          cd deploy && zip -r deploy.zip .
+
+      - name: Deploy to Elastic Beanstalk
+        uses: einaregilsson/beanstalk-deploy@v20
+        with:
+          aws_access_key: ${{secrets.AWS_ACTION_ACCESS_KEY_ID}}
+          aws_secret_key: ${{secrets.AWS_ACTION_SECRET_KEY_ID}}
+          application_name: 'coda-dev'
+          environment_name: 'Coda-dev-env-1'
+          version_label: github-action-${{steps.current-time.outputs.formattedTime}}
+          regin: 'ap-northeast-2'
+          deployment_pakage: 'deploy/deploy.zip'
+          wait_for_deployment: false
+
+
+
