@@ -33,6 +33,7 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew clean build -x test
         shell: bash
+
       - name: Get current time
         uses: josStorer/get-current-time@v2
         id: current-time
