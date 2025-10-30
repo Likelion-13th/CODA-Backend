@@ -41,7 +41,7 @@ jobs:
         run: echo "${{ steps.current-time.outputs.formattedTime }}"
         shell: bash
 
-      - name: Generate deployment pak\age
+      - name: Generate deployment package
         run: |
           mkdir -p deploy
           cp build/libs/*.jar deploy/application.jar
