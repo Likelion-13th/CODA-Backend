@@ -58,7 +58,7 @@ jobs:
         uses: einaregilsson/beanstalk-deploy@v20
         with:
           aws_access_key: ${{secrets.AWS_ACTION_ACCESS_KEY_ID}}
-          aws_secret_key: ${{secrets.AWS_ACTION_SECRET_KEY_ID}}
+          aws_secret_key: ${{secrets.AWS_ACTION_SECRET_ACCESS_KEY_ID}}
           application_name: 'coda-dev'
           environment_name: 'Coda-dev-env-1'
           version_label: github-action-${{steps.current-time.outputs.formattedTime}}
