@@ -59,7 +59,7 @@ jobs:
           environment_name: 'Coda-dev-env-1'
           version_label: github-action-${{steps.current-time.outputs.formattedTime}}
           regin: 'ap-northeast-2'
-          deployment_pakage: 'deploy/deploy.zip'
+          deployment_package: 'deploy/deploy.zip'
           wait_for_deployment: false
 
 
