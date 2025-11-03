@@ -5,4 +5,3 @@
   "isNew": true,
   "categoryIds": [2]
 }
-.
