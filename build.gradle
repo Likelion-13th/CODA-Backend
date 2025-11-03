@@ -1,7 +1,6 @@
-
 plugins {
 	id 'java'
-	id 'org.springframework.boot' version '3.4.6'
+	id 'org.springframework.boot' version '3.4.7'
 	id 'io.spring.dependency-management' version '1.1.7'
 }
 
@@ -21,6 +20,9 @@ repositories {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
+	implementation 'org.springframework.boot:spring-boot-starter-webflux'
+
 
 	// Database
 	runtimeOnly  'com.mysql:mysql-connector-j:8.3.0'
@@ -48,7 +50,9 @@ dependencies {
 	//  OAuth2 Client
 	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
 	// → 카카오 같은 외부 OAuth2 제공자와 연동하기 위해 필요합니다.
-
+	//env
+	// Env
+	implementation 'io.github.cdimascio:dotenv-java:3.0.0'
 	//  JWT (io.jsonwebtoken: JJWT 라이브러리)
 	implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
 	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
@@ -67,6 +71,6 @@ tasks.named('test') {
 
 // 일반 jar 생성을 비활성화
 // 어떤 jar를 선택할 지 모르기 때문에.. 하나 꺼버림!
-tasks.named('jar'){
+tasks.named('jar') {
 	enabled = false
 }

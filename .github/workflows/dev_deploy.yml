@@ -53,7 +53,7 @@ jobs:
           cp .env deploy/.env
           cp -r .ebextensions_dev deploy/.ebextensions
           cp -r .platform deploy/.platform
-          cd deploy && zip -r deploy.zip .
+          (cd deploy && zip -r deploy.zip .)
 
       - name: Deploy to Elastic Beanstalk
         uses: einaregilsson/beanstalk-deploy@v20
