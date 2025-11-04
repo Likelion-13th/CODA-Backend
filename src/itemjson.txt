@@ -5,3 +5,4 @@
   "isNew": true,
   "categoryIds": [2]
 }
+.xw
