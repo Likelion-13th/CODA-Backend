@@ -1,6 +1,6 @@
 plugins {
 	id 'java'
-	id 'org.springframework.boot' version '3.4.7'
+	id 'org.springframework.boot' version '3.4.6'
 	id 'io.spring.dependency-management' version '1.1.7'
 }
 
@@ -20,9 +20,6 @@ repositories {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
-	implementation 'org.springframework.boot:spring-boot-starter-webflux'
-
 
 	// Database
 	runtimeOnly  'com.mysql:mysql-connector-j:8.3.0'
@@ -50,27 +47,28 @@ dependencies {
 	//  OAuth2 Client
 	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
 	// → 카카오 같은 외부 OAuth2 제공자와 연동하기 위해 필요합니다.
-	//env
-	// Env
+
+	//	env 관리
 	implementation 'io.github.cdimascio:dotenv-java:3.0.0'
+
 	//  JWT (io.jsonwebtoken: JJWT 라이브러리)
 	implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
 	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
 	runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5'
 	// → Access Token / Refresh Token 생성 및 검증을 위한 라이브러리입니다.
-	runtimeOnly 'io.netty:netty-resolver-dns-native-macos:4.1.121.Final:osx-aarch_64'
+
 	// AWS와 통합된 다양한 서비스를 사용할 수 있도록 함
 	implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
 }
 
 /*
 tasks.named('test') {
-   useJUnitPlatform()
+	useJUnitPlatform()
 }
 */
 
 // 일반 jar 생성을 비활성화
 // 어떤 jar를 선택할 지 모르기 때문에.. 하나 꺼버림!
-tasks.named('jar') {
+tasks.named('jar'){
 	enabled = false
 }
