@@ -13,7 +13,7 @@ spring:
             client-id: ${KAKAO_REST_API_KEY}
             client-secret: ${KAKAO_CLIENT_SECRET}
             #redirect-uri: http://localhost:8080/login/oauth2/code/kakao
-            redirect-uri: http://Coda-dev-env-1.eba-vdx3cuqn.ap-northeast-2.elasticbeanstalk.com/login/oauth2/code/kakao
+            redirect-uri: http://coda-dev-env-1.eba-vdx3cuqn.ap-northeast-2.elasticbeanstalk.com/login/oauth2/code/kakao
             authorization-grant-type: authorization_code
             client-authentication-method: client_secret_post
             scope:
@@ -24,6 +24,11 @@ spring:
             token-uri: https://kauth.kakao.com/oauth/token
             user-info-uri: https://kapi.kakao.com/v2/user/me
             user-name-attribute: id
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 50MB
+      max-request-size: 50MB
 
 #JWT
 JWT_SECRET: ${JWT_SECRET}
@@ -38,6 +43,11 @@ cloud:
     region: ${AWS_REGION:ap-northeast-2}
     bucket: ${AWS_BUCKET:default-bucket}
 
+server:
+  tomcat:
+    max-swallow-size: -1
+    max-http-form-post-size: -1
+
 #Swagger
 springdoc:
   api-docs:
@@ -51,45 +61,6 @@ springdoc:
 
 ---
 
-#spring:
-#  config:
-#    activate:
-#      on-prifile: local
-#  datasource:
-#    url: ${LOCAL_DB_URL}
-#    username: ${LOCAL_DB_USERNAME}
-#    driver-class-name: com.mysql.cj.jdbc.Driver
-#  sql:
-#    init:
-#      mode: never
-#  jpa:
-#    hibernate:
-#      ddl-auto: update
-#    properties:
-#      dialect: org.hibernate.dialect.MySQLDialect
-#      use_sql_comments: true
-#      default_batch_fetch_suze: 1000
-#
-#---
-#spring:
-#  config:
-#    activate:
-#      on-prifile: develop
-#  datasource:
-#    url: ${local.db.url}
-#    username: ${local.db.password}
-#    driver-class-name: com.mysql.cj.jdbc.Driver
-#  sql:
-#    init:
-#      mode: never
-#  jpa:
-#    hibernate:
-#      ddl-auto: update
-#    properties:
-#      dialect: org.hibernate.dialect.MySQLDialect
-#      use_sql_comments: true
-#      default_batch_fetch_suze: 1000
----
 # local profile
 spring:
   config:
@@ -134,10 +105,6 @@ spring:
       use_sql_comments: true
       default_batch_fetch_size: 1000
 
-server:
-  tomcat:
-    max-swallow-size: -1
-    max-http-form-post-size: -1
 
 
 
