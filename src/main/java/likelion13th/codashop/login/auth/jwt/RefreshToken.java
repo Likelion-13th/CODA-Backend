@@ -48,8 +48,9 @@ public class RefreshToken {
     private Long ttl;
 
     /** 새 토큰으로 교체할 때 사용 */
-    public void updateRefreshToken(String refreshToken) {
+    public void updateRefreshToken(String refreshToken, Long ttl) {
         this.refreshToken = refreshToken;
+        this.ttl = ttl;
     }
 
     /** 만료 시각 갱신 */

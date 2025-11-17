@@ -2,8 +2,7 @@ package likelion13th.codashop.login.service;
 
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.http.HttpServletRequest;
-// 권장: org.springframework.transaction.annotation.Transactional 사용 (readOnly 등 추가 옵션 제공)
-import jakarta.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 
 import likelion13th.codashop.domain.User;
 import likelion13th.codashop.global.api.ErrorCode;
@@ -65,7 +64,7 @@ public class UserService {
      * - providerId로 User를 조회한 뒤, 사용자당 1개의 RefreshToken 행을 upsert한다.
      */
     @Transactional
-    public void saveRefreshToken(String providerId, String refreshToken) {
+    public void saveRefreshToken(String providerId, String refreshToken,Long ttl) {
         // 1. 사용자 조회
         User user = userRepository.findByProviderId(providerId)
                 .orElseThrow(() -> new GeneralException(ErrorCode.USER_NOT_FOUND));
@@ -73,7 +72,7 @@ public class UserService {
         // 2. 기존 토큰이 있으면 교체, 없으면 생성
         RefreshToken token = refreshTokenRepository.findByUser(user)
                 .map(existingToken -> {
-                    existingToken.updateRefreshToken(refreshToken);
+                    existingToken.updateRefreshToken(refreshToken,ttl);
                     return existingToken;
                 })
                 .orElseGet(() -> {
@@ -81,8 +80,7 @@ public class UserService {
                     return RefreshToken.builder()
                             .user(user)                                   // User와 1:1
                             .refreshToken(refreshToken)                   // 실제 RT 문자열
-                            .ttl(System.currentTimeMillis()
-                                    + 1000L * 60 * 60 * 24 * 7)          // 만료 시각(예: 7일)
+                            .ttl(ttl)                                     // 만료 시각(파라미터로 받은 값 사용)
                             .build();
                 });
 
@@ -110,7 +108,7 @@ public class UserService {
         JwtDto jwt = tokenProvider.generateTokens(details);
 
         // 3. RefreshToken 저장/갱신
-        saveRefreshToken(providerId, jwt.getRefreshToken());
+        saveRefreshToken(providerId, jwt.getRefreshToken(),jwt.getTtl());
         return jwt;
     }
 
@@ -177,7 +175,7 @@ public class UserService {
         log.info("[STEP 4] 새로운 Access/Refresh Token 발급 완료");
 
         // 7. Refresh 토큰 교체 저장
-        refreshTokenEntity.updateRefreshToken(newJwt.getRefreshToken());
+        refreshTokenEntity.updateRefreshToken(newJwt.getRefreshToken(),newJwt.getTtl());
         refreshTokenRepository.save(refreshTokenEntity);
 
         return newJwt;

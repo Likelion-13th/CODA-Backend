@@ -85,7 +85,7 @@ public class TokenProvider {
         String refreshToken = createToken(userId, null, refreshTokenExpiration);
 
         log.info("Access/Refresh 토큰 생성 완료 (userId: {})", userId);
-        return new JwtDto(accessToken, refreshToken);
+        return new JwtDto(accessToken, refreshToken,System.currentTimeMillis()+refreshTokenExpiration);
     }
 
     /**

@@ -13,6 +13,8 @@ public class OrderResponseDto {
     private Long orderId;
     private String usernickname;
     private String item_name;
+    private String item_brand;
+    private String item_url;
     private int quantity;
     private int totalPrice;
     private int finalPrice;
@@ -25,6 +27,8 @@ public class OrderResponseDto {
                 order.getId(),
                 order.getUser().getUsernickname(),
                 order.getItem().getItemname(),
+                order.getItem().getBrand(),
+                order.getItem().getImagePath(),
                 order.getQuantity(),
                 order.getTotalPrice(),
                 order.getFinalPrice(),
@@ -34,3 +38,4 @@ public class OrderResponseDto {
         );
     }
 }
+//fun1(1,2,3,4,5,6,7)

@@ -12,9 +12,11 @@ import lombok.ToString;
 public class JwtDto {
     private String accessToken;
     private String refreshToken;
+    private Long ttl;
 
-    public JwtDto(String accessToken, String refreshToken) {
+    public JwtDto(String accessToken, String refreshToken,Long ttl) {
         this.accessToken = accessToken;
         this.refreshToken = refreshToken;
+        this.ttl = ttl;
     }
 }
