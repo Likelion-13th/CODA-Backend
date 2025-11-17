@@ -37,7 +37,7 @@ public class Order extends BaseEntity {
     private OrderStatus status;
 
     //Item, User 와 연관관계 설정
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "item_id")
     private Item item;
 

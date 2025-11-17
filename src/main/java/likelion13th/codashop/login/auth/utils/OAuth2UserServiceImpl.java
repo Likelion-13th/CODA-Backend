@@ -50,11 +50,10 @@ public class OAuth2UserServiceImpl extends DefaultOAuth2UserService {
 
         // 2-2) 프로필 닉네임 추출 (없을 수 있으므로 getOrDefault 사용)
         //      카카오 attributes의 "properties"는 중첩 Map 구조이므로 캐스팅 필요
-
         @SuppressWarnings("unchecked")
         Map<String, Object> properties =
                 (Map<String, Object>) oAuth2User.getAttributes().getOrDefault("properties", Collections.emptyMap());
-        String nickname = properties.getOrDefault("nickname", "카카오사용자").toString();
+        String nickname = (String) properties.getOrDefault("nickname", "카카오사용자");
 
         // 3) Security에서 사용할 attributes를 확장:
         //    - 원본 attributes를 복사한 뒤 provider_id, nickname을 명시적 key로 추가
