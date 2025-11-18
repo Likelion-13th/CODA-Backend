@@ -8,8 +8,10 @@ import likelion13th.codashop.DTO.response.CategoryResponse;
 import likelion13th.codashop.global.api.ErrorCode;
 import likelion13th.codashop.global.exception.GeneralException;
 import likelion13th.codashop.repository.CategoryRepository;
+import likelion13th.codashop.domain.Item;
 
 
+import likelion13th.codashop.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +22,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class CategoryService {
     private final CategoryRepository categoryRepository;
+    private final ItemRepository itemRepository;
 
     // 모든 카테고리 조회
     @Transactional
@@ -65,6 +68,10 @@ public class CategoryService {
     //카테고리별 상품조회
     @Transactional
     public List<ItemResponseDto> getItemsByCategory(Long categoryId) {
+        if(categoryId==3){
+            List<Item> newItems=itemRepository.findAllByIsNew(Boolean.TRUE);
+            return newItems.stream().map(ItemResponseDto::from).collect(Collectors.toList());
+        }
         Category category=categoryRepository.findById(categoryId)
                 .orElseThrow(()-> new GeneralException(ErrorCode.CATEGORY_NOT_FOUND));
         return category.getItems().stream()
